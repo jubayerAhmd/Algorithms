@@ -1,0 +1,87 @@
+#include<iostream>
+#include<conio.h>
+
+using namespace std;
+
+void quicksort(int arr[], int low, int high)
+{
+    if (low < high)
+        {
+            int pivot = arr[(low + high) / 2];
+            int i = low - 1;
+            int j = high + 1;
+            while (true)
+            {
+                do
+                {
+                    i++;
+                }
+                while (arr[i] < pivot);
+                do
+                    {
+                        j--;
+                    }
+                while (arr[j] > pivot);
+                if (i >= j) break;
+                swap(arr[i], arr[j]);
+            }
+            quicksort(arr, low, j);
+            quicksort(arr, j + 1, high);
+        }
+}
+
+
+int binary_search(int arr[], int size, int target)
+{
+    int left = 0;
+    int right = size - 1;
+    while (left <= right)
+        {
+            int mid = left + (right - left) / 2;
+            if (arr[mid] == target)
+            {
+                return mid;
+            }
+            else if (arr[mid] < target)
+                {
+                    left = mid + 1;
+                }
+            else
+                {
+                    right = mid - 1;
+                }
+        }
+        return -1;
+}
+
+int main() {
+    int arr[] = {15, 22, 25, 0, -1, -2, -6, -12, 5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    quicksort(arr, 0, size - 1);
+
+    cout << "Sorted array:";
+
+    for (int i = 0; i < size; ++i)
+        {
+            cout << " " << arr[i];
+        }
+        cout << endl;
+
+    int target;
+    cout<<endl;
+    cout << "Enter the element to search: ";
+    cin >> target;
+
+    int index = binary_search(arr, size, target);
+    if (index != -1)
+        {
+              cout << "Element " << target << " found at index " << index << "." << endl;
+        }
+    else
+        {
+            cout << "Element " << target << " not found in the array." << endl;
+        }
+
+   getch();
+}
